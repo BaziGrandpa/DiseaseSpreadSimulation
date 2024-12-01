@@ -1,2 +1,1 @@
-
-##Simulation of disease spread at Chalmers.
+Simulation of disease spread at Chalmers.
