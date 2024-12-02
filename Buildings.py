@@ -14,6 +14,19 @@ class Building:
         self.maximum_number = maximum_number
         self.text_position = text_position
         self.students = []
+        building_id_map = {
+            "Physics Building": 0,
+            "Chemistry": 1,
+            "Machine": 2,
+            "Computer science and Engineering": 3,
+            "Cafeteria": 4,
+            "Library": 5,
+            "HB": 6,
+            "Home": 7
+        }
+        
+        # Assign ID based on the name
+        self.id = building_id_map.get(name, -1)  # Default to -1 if name is not found
 
 
     def enlist(self, student):
@@ -35,9 +48,6 @@ class Building:
         self.students.remove(student)
 
     ## TODO spread disease
-    def spread_disease_cafeteria(self):
-        return
-
 
     def __str__(self):
         """
@@ -78,19 +88,6 @@ def init_all_buildings():
     return buildings
 
 
-
-### Some function tests ###
-chemistry = Building(name= "Chemistry",position = None, text_position = None, maximum_number= 30)
-
-chemistry.enlist(2)
-
-print(chemistry)
-
-chemistry.enlist(10)
-
-print(chemistry)
-
-chemistry.remove_student(10)
-chemistry.remove_student(10)
-
-print(chemistry)
+## Example usage and test for ID ##
+physics= Building(name="Physics Building", position=[(400, 260), (405, 170), (345, 180),(350, 265)], text_position=[373, 162], maximum_number=300)
+print(physics.id)
