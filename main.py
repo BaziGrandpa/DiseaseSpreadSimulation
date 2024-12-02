@@ -45,15 +45,18 @@ for building in buildings.values():
 # initialize code
 Students.init_students()
 
+# send them back home
+for i in range(Students.total_students):
+    buildings["Home"].enlist(i)
+
 # the whole simulation
 time_step = 0
-max_time_step = 1000000000
+max_time_step = 100000000
 time_step_per_day = 1000
 visualization_step = 100
 while time_step < max_time_step:
     # simulation code
     SimulationController.simulation(time_step % time_step_per_day, buildings)
-
 
     # visualization code
     if time_step % visualization_step == 0:
