@@ -4,6 +4,7 @@ import Background
 import Buildings
 import SimulationController
 import Students
+import Visualization
 
 
 # Create the main window
@@ -60,6 +61,8 @@ while time_step < max_time_step:
 
     # visualization code
     if time_step % visualization_step == 0:
+        
+        Visualization.visualize_agent(canvas, buildings)
         # update the canvas
         root.update()
 
