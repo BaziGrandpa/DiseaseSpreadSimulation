@@ -9,7 +9,7 @@ END_OF_THIRD_CLASS = 400
 END_OF_FOURTH_CLASS = 500
 END_OF_A_DAY = 1000
 
-def simulation(time_step_in_day):
+def simulation(time_step_in_day,buildings):
 
     # at critical time steps, do something
     if time_step_in_day  == START_OF_A_DAY:
@@ -33,7 +33,7 @@ def simulation(time_step_in_day):
         # bed time, back home!!
         from_campus_to_home()
     else:
-        simulate_disease_spread()
+        simulate_disease_spread(buildings)
         
         
     return 
@@ -58,11 +58,20 @@ def from_cafeteria_to_classroom():
     print("from lunch to classroom")
     return
 
-def simulate_disease_spread():
+# @param buildings: a dictionary of buildings
+def simulate_disease_spread(buildings):
+
     # for each student, check if they are infectious
     # if they are, check if they are in the same building as other students
     # if they are, check if they are close to other students
     # if they are, infect
+    # this would be excecuted at every time step
+    # Draw all the buildings on the map
+    for building in buildings.values():
+        if building.name == "Cafeteria":
+            building.spread_disease_cafeteria()
+        
+
     return
 
 

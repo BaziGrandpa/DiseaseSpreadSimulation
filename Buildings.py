@@ -35,6 +35,9 @@ class Building:
         self.students.remove(student)
 
     ## TODO spread disease
+    def spread_disease_cafeteria(self):
+        return
+
 
     def __str__(self):
         """

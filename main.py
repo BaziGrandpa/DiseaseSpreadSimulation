@@ -52,7 +52,7 @@ time_step_per_day = 1000
 visualization_step = 100
 while time_step < max_time_step:
     # simulation code
-    SimulationController.simulation(time_step % time_step_per_day)
+    SimulationController.simulation(time_step % time_step_per_day, buildings)
 
 
     # visualization code

@@ -1,6 +1,6 @@
 total_students = 100
 
-departmen_number = 4
+department_number = 4
 
 # the id of the array should be the student id from 0-total_students
 # stored the state of the student from 0-1, 0 for healthy, 1 for severly infectious
@@ -11,7 +11,7 @@ student_department_list = [0] * total_students
 def init_students():
     for i in range(total_students):
         student_infectious_state_list[i] = 0
-        student_department_list[i] = i % departmen_number
+        student_department_list[i] = i % department_number
 
 def get_student_infectiou_state(student_id):
     return student_infectious_state_list[student_id]
