@@ -1,22 +1,47 @@
+import numpy as np
 class Building:
-    def __init__(self, name, position,text_position, maximum_number):
+    def __init__(self, name, position, text_position, maximum_number ,students):
         """
         Initialize the Building class.
 
         :param name: Name of the building (string).
         :param position: Position of the building on the map (tuple of x, y coordinates).
         :param maximum_number: Maximum capacity of the building (integer).
+
         """
         self.name = name
         self.position = position
         self.maximum_number = maximum_number
         self.text_position = text_position
+        self.students = students
+
+
+    def enlist(self, student):
+        if(self.is_over_capacity(len(self.students))):
+            print("Building full")
+            return
+
+        self.students.append(student)
+    
+
+    def remove_student(self, student):
+        if(len(self.students) == 0):
+            print("Building empty, cant remove student.")
+            return
+        elif(student not in self.students):
+            print(f"student :{student} is not in the building")
+            return
+
+        self.students.remove(student)
+
+    ## TODO spread disease
 
     def __str__(self):
         """
         Return a string representation of the building.
         """
-        return f"Building(name={self.name}, position={self.position}, maximum_number={self.maximum_number})"
+        return f"Building(name={self.name}, position={self.position}, maximum_number={self.maximum_number}, students={self.students})"
+
 
     def is_over_capacity(self, current_number):
         """
@@ -48,3 +73,21 @@ def init_all_buildings():
     buildings["Machine"] = building8
 
     return buildings
+
+
+
+### Some function tests ###
+chemistry = Building(name= "Chemistry",position = None, text_position = None, maximum_number= 30,  students=[])
+
+chemistry.enlist(2)
+
+print(chemistry)
+
+chemistry.enlist(10)
+
+print(chemistry)
+
+chemistry.remove_student(10)
+chemistry.remove_student(10)
+
+print(chemistry)
