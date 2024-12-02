@@ -11,6 +11,8 @@ student_department_list = [0] * total_students
 def init_students():
     for i in range(total_students):
         student_infectious_state_list[i] = 0
+        if i == 50:
+            student_infectious_state_list[i] = 1
         student_department_list[i] = i % department_number
 
 def get_student_infectiou_state(student_id):
