@@ -1,6 +1,6 @@
 import numpy as np
 class Building:
-    def __init__(self, name, position, text_position, maximum_number ,students):
+    def __init__(self, name, position, text_position, maximum_number):
         """
         Initialize the Building class.
 
@@ -13,7 +13,7 @@ class Building:
         self.position = position
         self.maximum_number = maximum_number
         self.text_position = text_position
-        self.students = students
+        self.students = []
 
 
     def enlist(self, student):
@@ -77,7 +77,7 @@ def init_all_buildings():
 
 
 ### Some function tests ###
-chemistry = Building(name= "Chemistry",position = None, text_position = None, maximum_number= 30,  students=[])
+chemistry = Building(name= "Chemistry",position = None, text_position = None, maximum_number= 30)
 
 chemistry.enlist(2)
 
