@@ -8,8 +8,10 @@ import Buildings
 root = tk.Tk()
 root.title("Chalmers Campus Map")
 
+
 # load the background image
 background_image = Background.init(root)
+
 
 # Create a canvas and add the image
 canvas_width = 1200
@@ -17,6 +19,7 @@ canvas_height = 900
 canvas = tk.Canvas(root, width=canvas_width, height=canvas_height)
 canvas.pack()
 canvas.create_image(0, 0, image=background_image, anchor="nw")
+
 
 # Bind mouse click event to the canvas
 def display_mouse_position(event):
@@ -26,6 +29,7 @@ def display_mouse_position(event):
     x, y = event.x, event.y
     canvas.create_text(x, y, text=f"({x}, {y})", fill="black", tag="mouse_position", anchor="nw")
 canvas.bind("<Button-1>", display_mouse_position)  # Left mouse button click
+
 
 # Draw all the buildings on the map
 buildings = Buildings.init_all_buildings()
