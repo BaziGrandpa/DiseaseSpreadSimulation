@@ -85,7 +85,14 @@ class Building:
                 if np.random.rand() < self.infection_rate:
                     state_neighbour = Students.get_student_infectiou_state(neighbour)
                     if state_neighbour == 0:
-                        Students.set_student_infectiou_state(neighbour, 1)
+                        Students.set_student_infectiou_state(neighbour, self.infection_rate)
+                    elif state_neighbour <= 1:
+                        incremental_infection = state_neighbour*(1+self.infection_rate)
+                        ## Can only be 100% infected.
+                        if(incremental_infection >= 1):
+                            incremental_infection = 1
+                        print(incremental_infection)
+                        Students.set_student_infectiou_state(neighbour, incremental_infection)
         return
     
     

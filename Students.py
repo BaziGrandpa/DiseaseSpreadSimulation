@@ -20,8 +20,8 @@ def get_student_infectiou_state(student_id):
 
 
 def set_student_infectiou_state(student_id, state):
-    if state>1 or state<0:
-        raise ValueError("The state should be 0 or 1") 
+    if state > 1 or state<0:
+        raise ValueError("The state should be between 0 and 1") 
     student_infectious_state_list[student_id] = state
 
 
