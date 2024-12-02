@@ -2,6 +2,8 @@ import tkinter as tk
 import Tools
 import Background
 import Buildings
+import SimulationController
+import Students
 
 
 # Create the main window
@@ -39,5 +41,27 @@ for building in buildings.values():
     # Draw the quadrilateral outline
     Tools.draw_quadrilateral_outline(canvas, points, line_color="blue", line_width=3)
     Tools.render_text(canvas, text_position[0], text_position[1], building.name, font=("Arial", 13), color="blue")
+
+# initialize code
+Students.init_students()
+
+# the whole simulation
+time_step = 0
+max_time_step = 1000000000
+time_step_per_day = 1000
+visualization_step = 100
+while time_step < max_time_step:
+    # simulation code
+    SimulationController.simulation(time_step % time_step_per_day)
+
+
+    # visualization code
+    if time_step % visualization_step == 0:
+        # update the canvas
+        root.update()
+
+    time_step += 1
+
+
 
 root.mainloop()
