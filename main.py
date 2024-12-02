@@ -65,6 +65,8 @@ while time_step < max_time_step:
         Visualization.visualize_agent(canvas, buildings)
         # update the canvas
         root.update()
+        # wait for a while
+        root.after(500)
 
     time_step += 1
 
