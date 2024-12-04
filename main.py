@@ -46,6 +46,15 @@ for building in buildings.values():
 # initialize code
 Students.init_students()
 
+#create a building map
+building_map=["Physics Building","Chemistry",
+            "Machine",
+            "Computer science and Engineering",
+            "Cafeteria",
+            "Library",
+            "HB",
+            "Home"]
+
 # send them back home
 for i in range(Students.total_students):
     buildings["Home"].enlist(i)
@@ -58,6 +67,7 @@ visualization_step = 100
 while time_step < max_time_step:
     # simulation code
     SimulationController.simulation(time_step % time_step_per_day, buildings)
+    SimulationController.simulation(time_step, buildings,building_map)
 
     # visualization code
     if time_step % visualization_step == 0:

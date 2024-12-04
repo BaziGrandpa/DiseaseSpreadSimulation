@@ -1,4 +1,6 @@
 import Students
+import Buildings
+import numpy as np
 
 # all key timestep variables
 START_OF_A_DAY = 0
@@ -11,19 +13,26 @@ END_OF_A_DAY = 1000
 
 def simulation(time_step_in_day,buildings):
 
+def simulation(time_step_in_day,buildings,building_map):
+    
     # at critical time steps, do something
     if time_step_in_day  == START_OF_A_DAY:
         # send all students to their respective buildings
         from_home_to_campus()
+        buildings= from_home_to_campus(buildings,building_map)
+        # print('people in chemistry' ,buildings["Chemistry"].students)
     elif time_step_in_day == END_OF_FIRST_CLASS:
         # maybe move them from one building to class room
         change_classroom()
     elif time_step_in_day == END_OF_SECOND_CLASS:
         # move them to lunch
         from_classroom_to_cafeteria()
+        buildings= from_classroom_to_cafeteria(buildings,building_map)
+
     elif time_step_in_day == END_OF_LUNCH:
         # move them to class
         from_cafeteria_to_classroom()
+        buildings=from_cafeteria_to_classroom(buildings,building_map)
     elif time_step_in_day == END_OF_THIRD_CLASS:
         # move them from one building to class room
         change_classroom()
@@ -32,30 +41,88 @@ def simulation(time_step_in_day,buildings):
     elif time_step_in_day == END_OF_A_DAY:
         # bed time, back home!!
         from_campus_to_home()
-    else:
-        simulate_disease_spread(buildings)
+        buildings=from_campus_to_home(buildings,building_map)
         
         
-    return 
-   
-def from_home_to_campus():
-    print("from home to campus")
-    return
+    # return 
+    # for i in range(7):
+    #     # print('number of students in',building_map[i],'is:',len(buildings[building_map[i]].students))
+def from_home_to_campus(buildings,building_map):
+    students_at_home= buildings["Home"].students.copy()
 
-def from_campus_to_home():
-    print("from campus to home")
-    return
+    
+    for i in students_at_home:
+        
+        ## Perhaps check if the student is to0 sick?
+        
+        departement=building_map[Students.student_department_list[i]]
+
+        current_number_occupants=len(buildings[departement].students)
+        
+        if not(buildings[departement].is_over_capacity(current_number_occupants)):
+
+            buildings[departement].enlist(i)
+            buildings["Home"].remove_student(i)
+
+
+    # print("from home to campus")
+    return buildings
+
+def from_campus_to_home(buildings,building_map):
+    #remove students from campus
+    print('currently home',len(buildings[building_map[7]].students))
+    
+
+    for i in range(len(building_map)-1):
+        students_in_building=buildings[building_map[i]].students.copy()
+        
+        for j in students_in_building:
+            buildings[building_map[i]].remove_student(j)
+            buildings["Home"].enlist(i) #send them home
+        print('left in building',len(buildings[building_map[i]].students))
+        
+        
+    print('home from campus',len(buildings["Home"].students))
+
+    # print("from campus to home")
+    return buildings
 
 def change_classroom():
-    print("change classroom")
+    # print("change classroom")
     return
 
-def from_classroom_to_cafeteria():
-    print("from classroom to lunch")
-    return
+def from_classroom_to_cafeteria(buildings,building_map):
 
-def from_cafeteria_to_classroom():
-    print("from lunch to classroom")
+    number_of_students=Students.total_students
+    caffeteria_capacity=min(buildings["Cafeteria"].maximum_number,number_of_students)
+    
+    
+
+    # random_students=np.random.randint(number_of_students,size=caffeteria_capacity)
+    random_students=np.random.choice(range(number_of_students), caffeteria_capacity, replace=False)
+    
+    for i in random_students:
+        
+        departement=building_map[Students.student_department_list[i]]
+
+        buildings[departement].remove_student(i)
+
+        buildings["Cafeteria"].enlist(i) #send them to Lunch
+
+    
+    # print("from classroom to lunch")
+    return buildings
+
+def from_cafeteria_to_classroom(buildings,building_map):
+    students_in_cafeteria=buildings["Cafeteria"].students.copy()
+    # print("students in cafeteria",len(students_in_cafeteria))
+    for i in students_in_cafeteria:
+        departement=building_map[Students.student_department_list[i]]
+        buildings["Cafeteria"].remove_student(i)
+        buildings[departement].enlist(i) #send them home
+    
+    # print("from lunch to classroom")
+    # print("students in cafeteria",len(buildings["Cafeteria"].students))
     return
 
 # @param buildings: a dictionary of buildings
