@@ -40,23 +40,23 @@ def simulation(time_step_in_day,buildings,building_map):
         
         buildings=from_campus_to_home(buildings,building_map)
         
-        
+    simulate_disease_spread(buildings)
     # return 
     # for i in range(7):
     #     # print('number of students in',building_map[i],'is:',len(buildings[building_map[i]].students))
 def from_home_to_campus(buildings,building_map):
     students_at_home= buildings["Home"].students.copy()
-
+    max_sickness_level=0.5 ## should be general
     
     for i in students_at_home:
         
-        ## Perhaps check if the student is to0 sick?
+        healthy_enough_for_school=max_sickness_level<Students.student_infectious_state_list[i]
         
         departement=building_map[Students.student_department_list[i]]
 
         current_number_occupants=len(buildings[departement].students)
         
-        if not(buildings[departement].is_over_capacity(current_number_occupants)):
+        if not(buildings[departement].is_over_capacity(current_number_occupants)) and healthy_enough_for_school:
 
             buildings[departement].enlist(i)
             buildings["Home"].remove_student(i)
