@@ -70,13 +70,13 @@ class Building:
 
             ## Closest neighbours above, below, left and right. Also check boundaries
             neighbors = []
-            if row > 0:  # Above
+            if row > 0 and (row + 1) * n_columns + col < self.maximum_number:  # Above
                 neighbors.append(self.students[(row - 1) * n_columns + col])
-            if row < n_rows - 1:  # Below
+            if row < n_rows - 1 and ((row + 1) * n_columns + col) < self.maximum_number:  # Below
                 neighbors.append(self.students[(row + 1) * n_columns + col])
-            if col > 0:  # Left
+            if col > 0 and row * n_columns + (col - 1) < self.maximum_number:  # Left
                 neighbors.append(self.students[row * n_columns + (col - 1)])
-            if col < n_columns - 1:  # Right
+            if col < n_columns - 1 and row * n_columns + (col + 1) < self.maximum_number:  # Right
                 neighbors.append(self.students[row * n_columns + (col + 1)])
            
             ## Infect neighbours, currently either infected or healthy. 
