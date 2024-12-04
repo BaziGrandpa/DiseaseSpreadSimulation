@@ -5,7 +5,7 @@ from tkinter import messagebox
 
 builindgs_positions_range = {}
 oval_objects_pool = []
-oval_size = 6
+oval_size = 4
 hint_show = False
 
 def visualize_agent(canvas,buildings):
@@ -24,13 +24,15 @@ def visualize_agent(canvas,buildings):
         messagebox.showinfo("Hint", f"Current students number:{total_alive_students} \n in all buildings is more than total students. ")
         hint_show = True
 
+    adjust_agent_size(total_alive_students)
+
     oval_id = 0
 
     for building in buildings.values():
-        building_position_range = get_buildings_position_range(building)
-        start_position = [building_position_range[0]+oval_size,building_position_range[1]+oval_size]
-        width = building_position_range[2]
-        height = building_position_range[3]
+        #building_position_range = get_buildings_position_range(building)
+        #start_position = [building_position_range[0]+oval_size,building_position_range[1]+oval_size]
+        building_position_range = get_building_position_dynamically(building)
+        start_position = building_position_range
         column_number =int( math.sqrt(building.maximum_number))
         id_in_list = 0
         for student_id in building.students:
@@ -75,3 +77,42 @@ def get_buildings_position_range(building):
 
     builindgs_positions_range[building.name] = [startx,starty,width,height]
     return builindgs_positions_range[building.name]
+
+def get_building_position_dynamically(building):
+    points = building.position        
+    x = [point[0] for point in points]
+    y = [point[1] for point in points]
+
+    center_x = sum(x) / len(x)
+    center_y = sum(y) / len(y)
+
+    student_number = len(building.students)
+
+    column_number =int( math.sqrt(building.maximum_number))
+
+    row_number = student_number // column_number
+
+    width = column_number * oval_size
+    height = row_number * oval_size
+
+    startx = center_x - width/2
+    starty = center_y - height/2
+    return [startx,starty]
+
+
+
+
+def adjust_agent_size(total_students):
+    global oval_size
+    if total_students < 400:
+        oval_size = 6
+    elif total_students < 1000:
+        oval_size = 5
+    elif total_students < 5000:
+        oval_size = 4
+    elif total_students < 8000:
+        oval_size = 3
+    else:
+        oval_size = 2
+
+    return
