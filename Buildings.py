@@ -121,7 +121,7 @@ def init_all_buildings():
     building3 = Building(name="Physics Building", position=[(355, 277), (478, 281), (478, 350), (353, 337)], text_position=[415, 360], maximum_number=100)
     building4=  Building(name="HB", position=[(590, 162), (594, 193), (674, 196), (669, 163)], text_position=[632, 143], maximum_number=100)
     building5=  Building(name="Chemistry", position=[(400, 260), (405, 170), (345, 180),(350, 265)], text_position=[373, 162], maximum_number=100)
-    building6 = Building(name="Home", position=[(227, 384), (237, 447), (57, 473),(45, 418)], text_position=[165, 380], maximum_number=100)
+    building6 = Building(name="Home", position=[(227, 384), (237, 447), (57, 473),(45, 418)], text_position=[165, 380], maximum_number=Students.total_students)
     building7 = Building(name="Computer science and Engineering", position=[(728, 204), (789, 200), (795, 274),(728, 281)], text_position=[761, 290], maximum_number=100)
     building8 = Building(name="Machine", position=[(663, 204), (667, 296), (561, 295),(561, 204)], text_position=[591, 307], maximum_number=100)
 

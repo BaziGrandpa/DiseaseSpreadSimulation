@@ -62,17 +62,17 @@ for i in range(Students.total_students):
 
 # the whole simulation
 time_step = 0
-max_time_step = 10000
+max_time_step = 10000000
 time_step_per_day = 1000
 visualization_step = 100
 #initialize data arrays
-number_of_students=100
-health_over_time=np.zeros((number_of_students,max_time_step)) #here 100 is the hard coded number of students
+#number_of_students=1000
+# health_over_time=np.zeros((Students.total_students,max_time_step)) #here 100 is the hard coded number of students
 while time_step < max_time_step:
     # simulation code
     SimulationController.simulation(time_step% time_step_per_day, buildings,building_map)
-    for i in range(number_of_students):
-        health_over_time[i,time_step]=Students.get_student_infectiou_state(i)
+    # for i in range(Students.total_students):
+    #     health_over_time[i,time_step]=Students.get_student_infectiou_state(i)
 
     # visualization code
     if time_step % visualization_step == 0:
