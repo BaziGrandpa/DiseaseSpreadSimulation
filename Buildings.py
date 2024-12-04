@@ -29,7 +29,7 @@ class Building:
         # Assign ID based on the name
         self.id = building_id_map.get(name, -1)  # Default to -1 if name is not found
 
-        self.infection_rate = 0.75 #  5%
+        self.infection_rate = 0.05 #  5%
 
 
     def enlist(self, student):
@@ -66,17 +66,17 @@ class Building:
             if student_state != 1:
                 continue
             ## Calculate 2D index from 1D.
-            row, col = student // n_columns, student % n_columns
+            row, col = id // n_columns, id % n_columns
 
             ## Closest neighbours above, below, left and right. Also check boundaries
             neighbors = []
-            if row > 0 and (row + 1) * n_columns + col < self.maximum_number:  # Above
+            if row > 0 and (row + 1) * n_columns + col < len(self.students):  # Above
                 neighbors.append(self.students[(row - 1) * n_columns + col])
-            if row < n_rows - 1 and ((row + 1) * n_columns + col) < self.maximum_number:  # Below
+            if row < n_rows - 1 and ((row + 1) * n_columns + col) < len(self.students):  # Below
                 neighbors.append(self.students[(row + 1) * n_columns + col])
-            if col > 0 and row * n_columns + (col - 1) < self.maximum_number:  # Left
+            if col > 0 and row * n_columns + (col - 1) < len(self.students):  # Left
                 neighbors.append(self.students[row * n_columns + (col - 1)])
-            if col < n_columns - 1 and row * n_columns + (col + 1) < self.maximum_number:  # Right
+            if col < n_columns - 1 and row * n_columns + (col + 1) < len(self.students):  # Right
                 neighbors.append(self.students[row * n_columns + (col + 1)])
            
             ## Infect neighbours, currently either infected or healthy. 
