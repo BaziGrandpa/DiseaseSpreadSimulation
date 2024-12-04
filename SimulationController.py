@@ -11,8 +11,6 @@ END_OF_THIRD_CLASS = 400
 END_OF_FOURTH_CLASS = 500
 END_OF_A_DAY = 1000
 
-def simulation(time_step_in_day,buildings):
-
 def simulation(time_step_in_day,buildings,building_map):
     
     # at critical time steps, do something
