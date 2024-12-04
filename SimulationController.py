@@ -50,13 +50,13 @@ def from_home_to_campus(buildings,building_map):
     
     for i in students_at_home:
         
-        healthy_enough_for_school=max_sickness_level<Students.student_infectious_state_list[i]
+        # healthy_enough_for_school=max_sickness_level>Students.student_infectious_state_list[i]
         
         departement=building_map[Students.student_department_list[i]]
 
         current_number_occupants=len(buildings[departement].students)
         
-        if not(buildings[departement].is_over_capacity(current_number_occupants)) and healthy_enough_for_school:
+        if not(buildings[departement].is_over_capacity(current_number_occupants)): #and healthy_enough_for_school:
 
             
             buildings["Home"].remove_student(i)
