@@ -132,7 +132,7 @@ def simulate_disease_spread(buildings):
     # this would be excecuted at every time step
     # Draw all the buildings on the map
     for building in buildings.values():
-        if building.name == "Home":
+        if building.name != "Home":
             building.spread_disease()
         
 
