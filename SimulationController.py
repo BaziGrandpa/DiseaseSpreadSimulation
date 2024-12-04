@@ -58,8 +58,9 @@ def from_home_to_campus(buildings,building_map):
         
         if not(buildings[departement].is_over_capacity(current_number_occupants)) and healthy_enough_for_school:
 
-            buildings[departement].enlist(i)
+            
             buildings["Home"].remove_student(i)
+            buildings[departement].enlist(i)
 
 
     # print("from home to campus")
