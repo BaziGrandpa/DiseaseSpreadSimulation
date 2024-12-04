@@ -16,7 +16,7 @@ def simulation(time_step_in_day,buildings,building_map):
     # at critical time steps, do something
     if time_step_in_day  == START_OF_A_DAY:
         # send all students to their respective buildings
-        buildings= from_home_to_campus(buildings,building_map)
+        from_home_to_campus(buildings,building_map)
         # print('people in chemistry' ,buildings["Chemistry"].students)
     elif time_step_in_day == END_OF_FIRST_CLASS:
         # maybe move them from one building to class room
@@ -24,12 +24,12 @@ def simulation(time_step_in_day,buildings,building_map):
     elif time_step_in_day == END_OF_SECOND_CLASS:
         # move them to lunch
         
-        buildings= from_classroom_to_cafeteria(buildings,building_map)
+        from_classroom_to_cafeteria(buildings,building_map)
 
     elif time_step_in_day == END_OF_LUNCH:
         # move them to class
         
-        buildings=from_cafeteria_to_classroom(buildings,building_map)
+        from_cafeteria_to_classroom(buildings,building_map)
     elif time_step_in_day == END_OF_THIRD_CLASS:
         # move them from one building to class room
         change_classroom()
@@ -38,7 +38,7 @@ def simulation(time_step_in_day,buildings,building_map):
     elif time_step_in_day == END_OF_A_DAY:
         # bed time, back home!!
         
-        buildings=from_campus_to_home(buildings,building_map)
+        from_campus_to_home(buildings,building_map)
         
     simulate_disease_spread(buildings)
     # return 
