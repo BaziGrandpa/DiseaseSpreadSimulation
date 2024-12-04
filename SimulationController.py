@@ -3,13 +3,13 @@ import Buildings
 import numpy as np
 
 # all key timestep variables
-START_OF_A_DAY = 0
-END_OF_FIRST_CLASS = 100
-END_OF_SECOND_CLASS = 200
-END_OF_LUNCH = 300
-END_OF_THIRD_CLASS = 400
-END_OF_FOURTH_CLASS = 500
-END_OF_A_DAY = 999
+START_OF_A_DAY = 100
+END_OF_FIRST_CLASS = 200
+END_OF_SECOND_CLASS = 300
+END_OF_LUNCH = 400
+END_OF_THIRD_CLASS = 500
+END_OF_FOURTH_CLASS = 600
+END_OF_A_DAY = 700
 
 def simulation(time_step_in_day,buildings,building_map):
     
@@ -73,9 +73,10 @@ def from_campus_to_home(buildings,building_map):
     for i in range(len(building_map)-1):
         students_in_building=buildings[building_map[i]].students.copy()
         
+        
         for j in students_in_building:
             buildings[building_map[i]].remove_student(j)
-            buildings["Home"].enlist(i) #send them home
+            buildings["Home"].enlist(j) #send them home
         print('left in building',len(buildings[building_map[i]].students))
         
         
