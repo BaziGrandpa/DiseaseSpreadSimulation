@@ -29,7 +29,7 @@ class Building:
         # Assign ID based on the name
         self.id = building_id_map.get(name, -1)  # Default to -1 if name is not found
 
-        self.infection_rate = 0.3 #  5%
+        self.infection_rate = 0.75 #  5%
 
 
     def enlist(self, student):
@@ -66,7 +66,7 @@ class Building:
             if student_state != 1:
                 continue
             ## Calculate 2D index from 1D.
-            row, col = id // n_columns, id % n_columns
+            row, col = student // n_columns, student % n_columns
 
             ## Closest neighbours above, below, left and right. Also check boundaries
             neighbors = []
