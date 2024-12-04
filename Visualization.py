@@ -40,8 +40,10 @@ def visualize_agent(canvas,buildings):
 
             state = Students.get_student_infectiou_state(student_id)
 
-
-            oval = oval_objects_pool[oval_id]
+            try:
+                oval = oval_objects_pool[oval_id]
+            except:
+                print("Error: oval_id:",oval_id)
 
             # canvas = tk.Canvas(root, width=1200, height=900)
             # canvas.pack()
