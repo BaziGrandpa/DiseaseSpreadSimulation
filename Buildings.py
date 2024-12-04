@@ -34,10 +34,8 @@ class Building:
 
     def enlist(self, student):
         if(self.is_over_capacity(len(self.students))):
-            print("Building full")
             return
         if student in self.students:
-            print("Student already in building!")
             return
 
         self.students.append(student)
@@ -45,10 +43,8 @@ class Building:
 
     def remove_student(self, student):
         if(len(self.students) == 0):
-            print("Building empty, cant remove student.")
             return
         elif(student not in self.students):
-            print(f"student :{student} is not in the building")
             return
 
         self.students.remove(student)
@@ -91,7 +87,6 @@ class Building:
                         ## Can only be 100% infected.
                         if(incremental_infection >= 1):
                             incremental_infection = 1
-                        print(incremental_infection)
                         Students.set_student_infectiou_state(neighbour, incremental_infection)
         return
     

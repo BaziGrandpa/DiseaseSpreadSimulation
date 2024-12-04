@@ -68,7 +68,7 @@ def from_home_to_campus(buildings,building_map):
 
 def from_campus_to_home(buildings,building_map):
     #remove students from campus
-    print('currently home',len(buildings[building_map[7]].students))
+    #print('currently home',len(buildings[building_map[7]].students))
     
 
     for i in range(len(building_map)-1):
@@ -78,10 +78,10 @@ def from_campus_to_home(buildings,building_map):
         for j in students_in_building:
             buildings[building_map[i]].remove_student(j)
             buildings["Home"].enlist(j) #send them home
-        print('left in building',len(buildings[building_map[i]].students))
+        #print('left in building',len(buildings[building_map[i]].students))
         
         
-    print('home from campus',len(buildings["Home"].students))
+    #print('home from campus',len(buildings["Home"].students))
 
     # print("from campus to home")
     return buildings
