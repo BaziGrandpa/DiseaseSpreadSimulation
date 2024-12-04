@@ -1,12 +1,15 @@
 import tkinter as tk
 import Students
 import math
+from tkinter import messagebox
 
 builindgs_positions_range = {}
 oval_objects_pool = []
 oval_size = 6
+hint_show = False
 
 def visualize_agent(canvas,buildings):
+    global hint_show
     if len(oval_objects_pool) <=0:
         for i in range(Students.total_students):
             oval_objects_pool.append(canvas.create_oval(0, 0, oval_size, oval_size, fill="green",state = "hidden"))
@@ -14,6 +17,12 @@ def visualize_agent(canvas,buildings):
     #hide all the students
     # for oval in oval_objects_pool:
     #     canvas.itemconfig(oval,state = "hidden")
+    total_alive_students = 0
+    for building in buildings.values():
+        total_alive_students += len(building.students)
+    if total_alive_students >Students.total_students and not hint_show:
+        messagebox.showinfo("Hint", f"Current students number:{total_alive_students} \n in all buildings is more than total students. ")
+        hint_show = True
 
     oval_id = 0
 
