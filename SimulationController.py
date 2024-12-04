@@ -95,10 +95,15 @@ def from_classroom_to_cafeteria(buildings,building_map):
     number_of_students=Students.total_students
     caffeteria_capacity=min(buildings["Cafeteria"].maximum_number,number_of_students)
     
-    
+    departments = building_map[:4]
+    selection = []
+    for building in buildings.values():
+        if building.name in departments: 
+            selection.append(building.students)
+    selection = np.array(selection).flatten()
 
     # random_students=np.random.randint(number_of_students,size=caffeteria_capacity)
-    random_students=np.random.choice(range(number_of_students), caffeteria_capacity, replace=False)
+    random_students=np.random.choice(selection, caffeteria_capacity, replace=False)
     
     for i in random_students:
         
