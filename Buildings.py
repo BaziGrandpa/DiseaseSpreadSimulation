@@ -29,7 +29,7 @@ class Building:
         # Assign ID based on the name
         self.id = building_id_map.get(name, -1)  # Default to -1 if name is not found
 
-        self.infection_rate = 0.05 #  5%
+        self.infection_rate = 0.3 #  5%
 
 
     def enlist(self, student):
