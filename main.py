@@ -12,6 +12,16 @@ import numpy as np
 root = tk.Tk()
 root.title("Chalmers Campus Map")
 
+running = False
+def on_closing():
+    global running
+    print("User clicked the close button. Cleaning up resources...")
+    root.destroy()  # This ensures the application closes properly
+    running = False
+
+# Bind the close button event to the handler function
+root.protocol("WM_DELETE_WINDOW", on_closing)
+
 
 # load the background image
 background_image = Background.init(root)
@@ -68,7 +78,8 @@ visualization_step = 100
 #initialize data arrays
 #number_of_students=1000
 # health_over_time=np.zeros((Students.total_students,max_time_step)) #here 100 is the hard coded number of students
-while time_step < max_time_step:
+running = True
+while time_step < max_time_step and running:
     # simulation code
     SimulationController.simulation(time_step% time_step_per_day, buildings,building_map)
     # for i in range(Students.total_students):
@@ -76,15 +87,19 @@ while time_step < max_time_step:
 
     # visualization code
     if time_step % visualization_step == 0:
-        
-        Visualization.visualize_agent(canvas, buildings)
-        # update the canvas
-        root.update()
-        # wait for a while
-        root.after(500)
+        try:
+            Visualization.visualize_agent(canvas, buildings)
+            # update the canvas
+            root.update()
+            # wait for a while
+            root.after(500)
+        except:
+            print("Visualization error")
+
 
     time_step += 1
 
 
 
+print("Simulation finished")
 root.mainloop()
