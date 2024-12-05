@@ -48,8 +48,9 @@ class Building:
         # Assign ID based on the name
         self.id = building_id_map.get(name, -1)  # Default to -1 if name is not found
 
-        self.infection_rate = 0.075 #  7.5%
-        self.recovery_rate = 0.01# 1% recovery rate. Use infectious state "2" as recovered
+        self.infection_rate = 0.01 #  1%
+        self.recovery_rate = 0.01# 1 % recovery rate. Use infectious state "2" as recovered
+        self.alpha = 0.01
 
 
     def enlist(self, student):
@@ -91,6 +92,14 @@ class Building:
             if student_state < 0.5 or student_state == 2:
                 continue
 
+            ## Make the sick student sicker over time
+            if 0.5 <= student_state and student_state < 1:
+                incremental_infection = student_state*(1+self.alpha)
+                ## Can only be 100% infected.
+                if(incremental_infection >=1):
+                    incremental_infection = 1
+                Students.set_student_infectiou_state(student, incremental_infection)
+
             neighbours = getNeighbours(i,self.students,(n_rows,n_columns))
            
             ## Infect neighbours, currently either infected or healthy. 
@@ -99,13 +108,8 @@ class Building:
                 state_neighbour = Students.get_student_infectiou_state(neighbour)
                 if np.random.rand() < self.infection_rate and state_neighbour != 2:
                     if state_neighbour == 0:
-                        Students.set_student_infectiou_state(neighbour, self.infection_rate)
-                    elif state_neighbour < 1:
-                        incremental_infection = state_neighbour*(1+self.infection_rate)
-                        ## Can only be 100% infected.
-                        if(incremental_infection >= 1):
-                            incremental_infection = 1
-                        Students.set_student_infectiou_state(neighbour, incremental_infection)
+                        Students.set_student_infectiou_state(neighbour, 0.5)
+
                 
         return
     
