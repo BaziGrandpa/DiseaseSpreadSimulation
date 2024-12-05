@@ -6,6 +6,7 @@ import SimulationController
 import Students
 import Visualization
 import numpy as np
+import Plot
 
 
 # Create the main window
@@ -76,23 +77,20 @@ max_time_step = 10000000
 time_step_per_day = 1000
 visualization_step = 100
 #initialize data arrays
-#number_of_students=1000
-# health_over_time=np.zeros((Students.total_students,max_time_step)) #here 100 is the hard coded number of students
 running = True
 while time_step < max_time_step and running:
     # simulation code
     SimulationController.simulation(time_step% time_step_per_day, buildings,building_map)
-    # for i in range(Students.total_students):
-    #     health_over_time[i,time_step]=Students.get_student_infectiou_state(i)
 
     # visualization code
     if time_step % visualization_step == 0:
         try:
+            Plot.record_simulation_data(time_step+1)
             Visualization.visualize_agent(canvas, buildings)
             # update the canvas
             root.update()
             # wait for a while
-            root.after(500)
+            #root.after(100)
         except:
             print("Visualization error")
 
@@ -101,5 +99,6 @@ while time_step < max_time_step and running:
 
 
 
-print("Simulation finished")
-root.mainloop()
+Plot.save_plot()
+print("Simulation completed. Exiting...")
+#root.mainloop()
