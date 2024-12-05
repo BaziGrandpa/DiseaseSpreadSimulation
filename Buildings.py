@@ -29,7 +29,8 @@ class Building:
         # Assign ID based on the name
         self.id = building_id_map.get(name, -1)  # Default to -1 if name is not found
 
-        self.infection_rate = 0.05 #  5%
+        self.infection_rate = 0.075 #  7.5%
+        self.recovery_rate = 0.01# 10% recovery rate. Use infectious state "2" as recovered
 
 
     def enlist(self, student):
@@ -50,6 +51,15 @@ class Building:
         self.students.remove(student)
 
 
+    def recover(self):
+        for student in self.students:
+            state = Students.get_student_infectiou_state(student)
+            if state == 1:
+                if np.random.rand() < self.recovery_rate:
+                    Students.set_student_infectiou_state(student,2)
+        return
+
+
     ## Will probably look similar for the other disease spread?
     def spread_disease(self):
         ## Assuming maximum number is always an integer after square-rooting
@@ -58,8 +68,8 @@ class Building:
         ## Id refers to index in the building list.
         for id, student in enumerate(self.students):
             student_state = Students.get_student_infectiou_state(student)
-            ## Cant infect if the current student is not infected.
-            if student_state != 1:
+            ## Cant infect if the current student is not infected enough, or recovered.
+            if student_state < 0.5 or student_state == 2:
                 continue
             ## Calculate 2D index from 1D.
             row, col = id // n_columns, id % n_columns
@@ -78,16 +88,17 @@ class Building:
             ## Infect neighbours, currently either infected or healthy. 
             for neighbour in neighbors:
                 ## Can only infect if student is infected
-                if np.random.rand() < self.infection_rate:
-                    state_neighbour = Students.get_student_infectiou_state(neighbour)
+                state_neighbour = Students.get_student_infectiou_state(neighbour)
+                if np.random.rand() < self.infection_rate and state_neighbour != 2:
                     if state_neighbour == 0:
                         Students.set_student_infectiou_state(neighbour, self.infection_rate)
-                    elif state_neighbour <= 1:
+                    elif state_neighbour < 1:
                         incremental_infection = state_neighbour*(1+self.infection_rate)
                         ## Can only be 100% infected.
                         if(incremental_infection >= 1):
                             incremental_infection = 1
                         Students.set_student_infectiou_state(neighbour, incremental_infection)
+                
         return
     
     

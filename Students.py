@@ -12,7 +12,7 @@ def init_students():
     for i in range(total_students):
         student_infectious_state_list[i] = 0
         if i == 50:
-            student_infectious_state_list[i] = 1
+            student_infectious_state_list[i] = 0.8
         student_department_list[i] = i % department_number
 
 def get_student_infectiou_state(student_id):
@@ -20,7 +20,7 @@ def get_student_infectiou_state(student_id):
 
 
 def set_student_infectiou_state(student_id, state):
-    if state > 1 or state<0:
+    if (state > 1 and state != 2) or state<0:
         raise ValueError("The state should be between 0 and 1") 
     student_infectious_state_list[student_id] = state
 

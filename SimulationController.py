@@ -3,13 +3,13 @@ import Buildings
 import numpy as np
 
 # all key timestep variables
-START_OF_A_DAY = 100
-END_OF_FIRST_CLASS = 200
-END_OF_SECOND_CLASS = 300
+START_OF_A_DAY = 0
+END_OF_FIRST_CLASS = 100
+END_OF_SECOND_CLASS = 200
 END_OF_LUNCH = 400
-END_OF_THIRD_CLASS = 500
-END_OF_FOURTH_CLASS = 600
-END_OF_A_DAY = 700
+END_OF_THIRD_CLASS = 600
+END_OF_FOURTH_CLASS = 700
+END_OF_A_DAY = 800
 
 def simulation(time_step_in_day,buildings,building_map):
     
@@ -139,7 +139,9 @@ def simulate_disease_spread(buildings):
     # this would be excecuted at every time step
     # Draw all the buildings on the map
     for building in buildings.values():
-        if building.name != "Home":
+        if building.name == "Home":
+            building.recover()
+        else:
             building.spread_disease()
         
 

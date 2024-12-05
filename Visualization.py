@@ -52,7 +52,7 @@ def visualize_agent(canvas,buildings):
             start_position_x = start_position[0] + column*oval_size
             start_position_y = start_position[1] + row*oval_size
             canvas.coords(oval,start_position_x, start_position_y,start_position_x+ oval_size,start_position_y+ oval_size)
-            canvas.itemconfig(oval, state="normal", fill="red" if state >= 0.5 else "green")
+            canvas.itemconfig(oval, state="normal", fill="red" if (state >= 0.5 and state !=2) else "green")
             id_in_list += 1
             oval_id += 1
 
