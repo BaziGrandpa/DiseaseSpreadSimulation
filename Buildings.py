@@ -1,5 +1,24 @@
 import numpy as np
 import Students
+
+### Helper functions: 
+def getNeighbours(i,students,grid_size):
+    neighbours = []
+    n_rows,n_columns = grid_size[0],grid_size[1]
+    ## Calculate 2D index from 1D.
+    row, col = i // n_columns, i % n_columns
+
+    if row > 0 and (row + 1) * n_columns + col < len(students):  # Above
+        neighbours.append(students[(row - 1) * n_columns + col])
+    if row < n_rows - 1 and ((row + 1) * n_columns + col) < len(students):  # Below
+        neighbours.append(students[(row + 1) * n_columns + col])
+    if col > 0 and row * n_columns + (col - 1) < len(students):  # Left
+        neighbours.append(students[row * n_columns + (col - 1)])
+    if col < n_columns - 1 and row * n_columns + (col + 1) < len(students):  # Right
+        neighbours.append(students[row * n_columns + (col + 1)])
+    
+    return neighbours
+
 class Building:
     def __init__(self, name, position, text_position, maximum_number):
         """
@@ -30,7 +49,7 @@ class Building:
         self.id = building_id_map.get(name, -1)  # Default to -1 if name is not found
 
         self.infection_rate = 0.075 #  7.5%
-        self.recovery_rate = 0.01# 10% recovery rate. Use infectious state "2" as recovered
+        self.recovery_rate = 0.01# 1% recovery rate. Use infectious state "2" as recovered
 
 
     def enlist(self, student):
@@ -65,28 +84,17 @@ class Building:
         ## Assuming maximum number is always an integer after square-rooting
         n_rows,n_columns = int(np.sqrt(self.maximum_number)), int(np.sqrt(self.maximum_number))
 
-        ## Id refers to index in the building list.
-        for id, student in enumerate(self.students):
+        ## i refers to index in the building list.
+        for i, student in enumerate(self.students):
             student_state = Students.get_student_infectiou_state(student)
             ## Cant infect if the current student is not infected enough, or recovered.
             if student_state < 0.5 or student_state == 2:
                 continue
-            ## Calculate 2D index from 1D.
-            row, col = id // n_columns, id % n_columns
 
-            ## Closest neighbours above, below, left and right. Also check boundaries
-            neighbors = []
-            if row > 0 and (row + 1) * n_columns + col < len(self.students):  # Above
-                neighbors.append(self.students[(row - 1) * n_columns + col])
-            if row < n_rows - 1 and ((row + 1) * n_columns + col) < len(self.students):  # Below
-                neighbors.append(self.students[(row + 1) * n_columns + col])
-            if col > 0 and row * n_columns + (col - 1) < len(self.students):  # Left
-                neighbors.append(self.students[row * n_columns + (col - 1)])
-            if col < n_columns - 1 and row * n_columns + (col + 1) < len(self.students):  # Right
-                neighbors.append(self.students[row * n_columns + (col + 1)])
+            neighbours = getNeighbours(i,self.students,(n_rows,n_columns))
            
             ## Infect neighbours, currently either infected or healthy. 
-            for neighbour in neighbors:
+            for neighbour in neighbours:
                 ## Can only infect if student is infected
                 state_neighbour = Students.get_student_infectiou_state(neighbour)
                 if np.random.rand() < self.infection_rate and state_neighbour != 2:
@@ -100,7 +108,6 @@ class Building:
                         Students.set_student_infectiou_state(neighbour, incremental_infection)
                 
         return
-    
     
     
 
