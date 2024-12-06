@@ -74,7 +74,7 @@ class Building:
     def recover(self):
         for student in self.students:
             state = Students.get_student_infectiou_state(student)
-            if state == 1:
+            if state != 0:
                 if np.random.rand() < self.recovery_rate:
                     Students.set_student_infectiou_state(student,2)
         return

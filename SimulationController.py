@@ -46,17 +46,19 @@ def simulation(time_step_in_day,buildings,building_map):
     #     # print('number of students in',building_map[i],'is:',len(buildings[building_map[i]].students))
 def from_home_to_campus(buildings,building_map):
     students_at_home= buildings["Home"].students.copy()
-    max_sickness_level=0.5 ## should be general
+    max_sickness_level=0.7 ## should be general
     
     for i in students_at_home:
         
-        # healthy_enough_for_school=max_sickness_level>Students.student_infectious_state_list[i]
+        healthy_enough_for_school=False
+        if max_sickness_level>Students.student_infectious_state_list[i] or Students.student_infectious_state_list[i]==2 :
+            healthy_enough_for_school=True
         
         departement=building_map[Students.student_department_list[i]]
 
         current_number_occupants=len(buildings[departement].students)
         
-        if not(buildings[departement].is_over_capacity(current_number_occupants)): #and healthy_enough_for_school:
+        if not(buildings[departement].is_over_capacity(current_number_occupants)) and healthy_enough_for_school:
 
             
             buildings["Home"].remove_student(i)
@@ -99,11 +101,13 @@ def from_classroom_to_cafeteria(buildings,building_map):
     selection = []
     for building in buildings.values():
         if building.name in departments: 
-            selection.append(building.students)
-    selection = np.array(selection).flatten()
-
+            selection.extend(building.students)
+    # selection = np.array(selection).flatten()
+    if len(selection) >= caffeteria_capacity:
     # random_students=np.random.randint(number_of_students,size=caffeteria_capacity)
-    random_students=np.random.choice(selection, caffeteria_capacity, replace=False)
+        random_students=np.random.choice(selection, caffeteria_capacity, replace=False)
+    else:
+        random_students=selection
     
     for i in random_students:
         
