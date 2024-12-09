@@ -3,7 +3,7 @@
 number_of_students=400
 
 max_capacity=100 #the maximum capacity of each building
-
+max_capacity_caffeteria=400 # same as number of students.
 public_distancing_precentage=1
 
 building_capacity=max_capacity*public_distancing_precentage

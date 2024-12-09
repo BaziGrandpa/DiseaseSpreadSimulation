@@ -81,7 +81,7 @@ for i in range(Students.total_students):
 time_step = 0
 max_time_step = 10000000
 time_step_per_day = 720
-visualization_step = 5
+visualization_step = 100
 #initialize data arrays
 running = True
 while time_step < max_time_step and running:
