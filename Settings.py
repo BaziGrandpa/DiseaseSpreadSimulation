@@ -16,3 +16,4 @@ stay_at_home_threshold=0.7
 
 patient_zero_index=50
 
+time_step_per_day = 720

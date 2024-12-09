@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import Students
 import Buildings
+import Settings
 
 recorded_time_steps = []
 recorded_sick_students = []
@@ -35,7 +36,7 @@ def record_student_learning(buildings):
     student_learning.append(np.sum(total_learning_fraction)/4) ## divide by 4 since we are looking at 4 departments
 
 
-def save_plot_fraction_learning(infectious_rate, recovery_rate):
+def save_plot_fraction_learning(infectious_rate, recovery_rate,social_dist):
     # Define the folder path for saving the plot
     plot_folder = "Plot"
 
@@ -43,19 +44,19 @@ def save_plot_fraction_learning(infectious_rate, recovery_rate):
     if not os.path.exists(plot_folder):
         os.makedirs(plot_folder)
 
-    final_file_name = str(Students.total_students) + "students_" + str(infectious_rate) + "Irate_" + str(recovery_rate)  +  "Rrate "+ "_percent learning.png"
+    final_file_name = str(Students.total_students) + "students_" + str(infectious_rate) + "Irate_" + str(recovery_rate)  +  "Rrate_"+ str(social_dist)+ "social dist" "_percent learning.png"
 
     # Full path for the plot file
     plot_filename = os.path.join(plot_folder, final_file_name)
 
+    # Generate x-ticks for days
+ 
     # Create a MATLAB-style plot
     plt.figure(figsize=(10, 6))
 
     # Plot recorded data
-    plt.plot(recorded_time_steps, student_learning, label="Percentage learning", color="red")
-
-    
-    plt.xlabel("Time Steps")
+    plt.plot(np.array(recorded_time_steps) / Settings.time_step_per_day, student_learning, label="Percentage learning", color="red")
+    plt.xlabel("Time Steps (Days)")
     plt.ylabel("Fraction of learning")
     plt.title("Simulation Results: Learning over time as disease spread.")
     plt.legend()
@@ -91,7 +92,7 @@ def record_simulation_data(time_step):
     recorded_recovered_students.append(recovered_students_count)
     
 
-def save_plot(infectious_rate, recovery_rate):
+def save_plot(infectious_rate, recovery_rate,social_dist):
     # Define the folder path for saving the plot
     plot_folder = "Plot"
 
@@ -99,7 +100,7 @@ def save_plot(infectious_rate, recovery_rate):
     if not os.path.exists(plot_folder):
         os.makedirs(plot_folder)
 
-    final_file_name = str(Students.total_students) + "students_" + str(infectious_rate) + "Irate_" + str(recovery_rate) + "Rrate.png"
+    final_file_name = str(Students.total_students) + "students_" + str(infectious_rate) + "Irate_" + str(recovery_rate) + "Rrate_" + str(social_dist)+ "social dist.png"
 
     # Full path for the plot file
     plot_filename = os.path.join(plot_folder, final_file_name)
@@ -108,11 +109,11 @@ def save_plot(infectious_rate, recovery_rate):
     plt.figure(figsize=(10, 6))
 
     # Plot recorded data
-    plt.plot(recorded_time_steps, recorded_sick_students, label="Sick Students", color="red")
-    plt.plot(recorded_time_steps, recorded_healthy_students, label="Healthy Students", color="green")
-    plt.plot(recorded_time_steps, recorded_recovered_students, label="Recovered Students", color="blue")
+    plt.plot(np.array(recorded_time_steps) / Settings.time_step_per_day, recorded_sick_students, label="Sick Students", color="red")
+    plt.plot(np.array(recorded_time_steps) / Settings.time_step_per_day, recorded_healthy_students, label="Healthy Students", color="green")
+    plt.plot(np.array(recorded_time_steps) / Settings.time_step_per_day, recorded_recovered_students, label="Recovered Students", color="blue")
     
-    plt.xlabel("Time Steps")
+    plt.xlabel("Time Steps (Days)")
     plt.ylabel("Number of Students")
     plt.title("Simulation Results: Healthy vs Sick Students")
     plt.legend()
