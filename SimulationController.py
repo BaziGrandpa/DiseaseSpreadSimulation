@@ -3,13 +3,13 @@ import Buildings
 import numpy as np
 import Settings
 # all key timestep variables
-START_OF_A_DAY = 480
-END_OF_FIRST_CLASS = 600
-END_OF_SECOND_CLASS = 720
-END_OF_LUNCH = 780
-END_OF_THIRD_CLASS = 900
-END_OF_FOURTH_CLASS = 1020
-END_OF_A_DAY = 1035
+START_OF_A_DAY = 48
+END_OF_FIRST_CLASS = 60
+END_OF_SECOND_CLASS = 72
+END_OF_LUNCH = 78
+END_OF_THIRD_CLASS = 90
+END_OF_FOURTH_CLASS = 102
+END_OF_A_DAY = 103
 
 def simulation(time_step_in_day,buildings,building_map):
     
