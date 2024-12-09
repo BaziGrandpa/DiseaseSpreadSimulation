@@ -32,7 +32,7 @@ def record_student_learning(buildings):
                 ## 
                 total_learning_fraction.append(fraction_learning_per_class/building.maximum_number)
 
-    student_learning.append(np.sum(total_learning_fraction)) ## divide by 4 since we are looking at 4 departments
+    student_learning.append(np.sum(total_learning_fraction)/4) ## divide by 4 since we are looking at 4 departments
 
 
 def save_plot_fraction_learning():
