@@ -1,7 +1,8 @@
 import Buildings
 import Students
 import numpy as np
-
+import Plot
+import SimulationController
 
 ########## Example usage and tests ##########
 
@@ -24,4 +25,26 @@ def test_spread():
     print(np.sum(Students.student_infectious_state_list))
 
 
-test_spread()
+#test_spread()
+
+def test_student_learning():
+    buildings = Buildings.init_all_buildings()
+    Students.init_students()
+    building_map=["Physics Building","Chemistry",
+            "Machine",
+            "Computer science and Engineering",
+            "Cafeteria",
+            "Library",
+            "HB",
+            "Home"]
+    for i in range(Students.total_students):
+        buildings["Home"].enlist(i)
+
+    SimulationController.from_home_to_campus(buildings,building_map)
+
+
+    learning = Plot.record_student_learning(buildings)
+
+    print(learning)
+
+test_student_learning()

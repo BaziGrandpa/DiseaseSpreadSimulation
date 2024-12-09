@@ -92,6 +92,8 @@ while time_step < max_time_step and running:
     if time_step % visualization_step == 0:
         try:
             Plot.record_simulation_data(time_step+1)
+            Plot.record_student_learning(buildings)
+
             Visualization.visualize_agent(canvas, buildings)
             # update the canvas
             root.update()
@@ -106,5 +108,6 @@ while time_step < max_time_step and running:
 
 
 Plot.save_plot(buildings["Home"].infection_rate,buildings["Home"].recovery_rate)
+Plot.save_plot_fraction_learning()
 print("Simulation completed. Exiting...")
 #root.mainloop()
