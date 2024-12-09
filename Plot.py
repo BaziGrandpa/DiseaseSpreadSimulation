@@ -43,7 +43,7 @@ def record_simulation_data(time_step):
     recovered_students_count = 0
     for i in range(Students.total_students):
         infectious_state = Students.get_student_infectiou_state(i)
-        if infectious_state < 0.5:
+        if infectious_state < 0.1:
             healthy_students_count += 1
         elif infectious_state == 2:
             recovered_students_count += 1
@@ -56,7 +56,7 @@ def record_simulation_data(time_step):
     recorded_recovered_students.append(recovered_students_count)
     
 
-def save_plot(infectious_rate, recovery_rate,social_dist):
+def save_plot(infectious_rate, recovery_rate,social_dist,stay_home_thresh):
     # Define the folder path for saving the plot
     plot_folder = "Plot"
 
@@ -64,7 +64,7 @@ def save_plot(infectious_rate, recovery_rate,social_dist):
     if not os.path.exists(plot_folder):
         os.makedirs(plot_folder)
 
-    final_file_name = str(Students.total_students) + "students_" + str(infectious_rate) + "Irate_" + str(recovery_rate) + "Rrate_" + str(social_dist)+ "social dist.png"
+    final_file_name = str(Students.total_students) + "students_" + str(infectious_rate) + "Irate_" + str(recovery_rate) + "Rrate_" + str(stay_home_thresh) + "StayHome_" + str(social_dist)+ "social dist.png"
 
     # Full path for the plot file
     plot_filename = os.path.join(plot_folder, final_file_name)

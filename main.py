@@ -108,6 +108,6 @@ while time_step < max_time_step and running:
 
 
 
-Plot.save_plot(buildings["Home"].infection_rate,buildings["Home"].recovery_rate, Settings.public_distancing_precentage)
+Plot.save_plot(buildings["Home"].infection_rate,buildings["Home"].recovery_rate, Settings.public_distancing_precentage,Settings.stay_at_home_threshold)
 print("Simulation completed. Exiting...")
 #root.mainloop()

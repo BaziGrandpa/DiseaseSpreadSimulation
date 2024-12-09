@@ -93,11 +93,11 @@ class Building:
                 
                 Students.set_student_infectiou_state(student,0)
             ## Cant infect if the current student is not infected enough, or recovered.
-            if student_state < 0.5 or student_state == 2:
+            if student_state < 0.1 or student_state == 2:
                 continue
 
             ## Make the sick student sicker over time
-            if 0.5 <= student_state and student_state < 1:
+            if 0.1 <= student_state and student_state < 1:
                 incremental_infection = student_state*(1+self.alpha)
                 ## Can only be 100% infected.
                 if(incremental_infection >=1):
@@ -112,7 +112,7 @@ class Building:
                 state_neighbour = Students.get_student_infectiou_state(neighbour)
                 if np.random.rand() < self.infection_rate*Settings.public_distancing_precentage**2 and state_neighbour != 2:
                     if state_neighbour == 0:
-                        Students.set_student_infectiou_state(neighbour, 0.5)
+                        Students.set_student_infectiou_state(neighbour, 0.1)
 
                 
         return
