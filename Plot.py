@@ -35,7 +35,7 @@ def record_student_learning(buildings):
     student_learning.append(np.sum(total_learning_fraction)/4) ## divide by 4 since we are looking at 4 departments
 
 
-def save_plot_fraction_learning():
+def save_plot_fraction_learning(infectious_rate, recovery_rate):
     # Define the folder path for saving the plot
     plot_folder = "Plot"
 
@@ -43,7 +43,7 @@ def save_plot_fraction_learning():
     if not os.path.exists(plot_folder):
         os.makedirs(plot_folder)
 
-    final_file_name = str(Students.total_students) + "students_"  + "percent learning.png"
+    final_file_name = str(Students.total_students) + "students_" + str(infectious_rate) + "Irate_" + str(recovery_rate)  +  "Rrate "+ "_percent learning.png"
 
     # Full path for the plot file
     plot_filename = os.path.join(plot_folder, final_file_name)

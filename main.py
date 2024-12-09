@@ -108,6 +108,6 @@ while time_step < max_time_step and running:
 
 
 Plot.save_plot(buildings["Home"].infection_rate,buildings["Home"].recovery_rate)
-Plot.save_plot_fraction_learning()
+Plot.save_plot_fraction_learning(buildings["Home"].infection_rate,buildings["Home"].recovery_rate)
 print("Simulation completed. Exiting...")
 #root.mainloop()
