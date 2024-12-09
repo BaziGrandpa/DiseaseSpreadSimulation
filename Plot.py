@@ -4,6 +4,7 @@ import numpy as np
 import Students
 import Buildings
 import Settings
+import SimulationController
 
 recorded_time_steps = []
 recorded_sick_students = []
@@ -34,6 +35,11 @@ def record_student_learning(buildings):
                 total_learning_fraction.append(fraction_learning_per_class/building.maximum_number)
 
     student_learning.append(np.sum(total_learning_fraction)/4) ## divide by 4 since we are looking at 4 departments
+
+
+
+
+
 
 
 def record_simulation_data(time_step):
@@ -82,8 +88,14 @@ def save_plot(infectious_rate, recovery_rate,social_dist,stay_home_thresh):
     ax[0].legend()
     ax[0].grid(True)
 
+
+    ## Non-zero-learning refers to the time when the students are at school.
+    non_zero_learning = np.array([rate for rate in student_learning if rate != 0])
+    avg_learning = np.sum(non_zero_learning)/len(non_zero_learning)
+
     # Plotting on the second subplot
     ax[1].plot(np.array(recorded_time_steps) / Settings.time_step_per_day, student_learning, label="Percentage learning", color="red")
+    ax[1].axhline(y=avg_learning, color='blue', linestyle='--', label=f'Average learning in class: {avg_learning:.2f}')
     ax[1].set_xlabel("Time Steps (Days)")
     ax[1].set_ylabel("Learning (%)")
     ax[1].set_title("Simulation Results: Learning over time as disease spread.")

@@ -80,7 +80,7 @@ for i in range(Students.total_students):
 
 # the whole simulation
 time_step = 0
-max_time_step = 10000000
+max_time_step = 43200 # corresponds to 60 days. time_step_per_day * 60
 time_step_per_day = 720
 visualization_step = 100
 #initialize data arrays
@@ -105,7 +105,6 @@ while time_step < max_time_step and running:
 
 
     time_step += 1
-
 
 
 Plot.save_plot(buildings["Home"].infection_rate,buildings["Home"].recovery_rate, Settings.public_distancing_precentage,Settings.stay_at_home_threshold)
