@@ -1,15 +1,15 @@
 import Students
 import Buildings
 import numpy as np
-
+import Settings
 # all key timestep variables
-START_OF_A_DAY = 0
-END_OF_FIRST_CLASS = 10
-END_OF_SECOND_CLASS = 20
-END_OF_LUNCH = 40
-END_OF_THIRD_CLASS = 60
-END_OF_FOURTH_CLASS = 70
-END_OF_A_DAY = 80
+START_OF_A_DAY = 480
+END_OF_FIRST_CLASS = 600
+END_OF_SECOND_CLASS = 720
+END_OF_LUNCH = 780
+END_OF_THIRD_CLASS = 900
+END_OF_FOURTH_CLASS = 1020
+END_OF_A_DAY = 1035
 
 def simulation(time_step_in_day,buildings,building_map):
     
@@ -46,7 +46,7 @@ def simulation(time_step_in_day,buildings,building_map):
     #     # print('number of students in',building_map[i],'is:',len(buildings[building_map[i]].students))
 def from_home_to_campus(buildings,building_map):
     students_at_home= buildings["Home"].students.copy()
-    max_sickness_level=0.7 ## should be general
+    max_sickness_level=Settings.stay_at_home_threshold 
     
     for i in students_at_home:
         

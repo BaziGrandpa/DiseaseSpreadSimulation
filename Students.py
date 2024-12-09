@@ -1,4 +1,6 @@
-total_students = 100
+import Settings
+
+total_students = Settings.number_of_students
 
 department_number = 4
 
@@ -11,7 +13,7 @@ student_department_list = [0] * total_students
 def init_students():
     for i in range(total_students):
         student_infectious_state_list[i] = 0
-        if i == 50:
+        if i == Settings.patient_zero_index:
             student_infectious_state_list[i] = 0.5
         student_department_list[i] = i % department_number
 

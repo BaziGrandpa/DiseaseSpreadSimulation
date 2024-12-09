@@ -1,6 +1,6 @@
 import numpy as np
 import Students
-
+import Settings
 ### Helper functions: 
 def getNeighbours(i,students,grid_size):
     neighbours = []
@@ -48,10 +48,10 @@ class Building:
         # Assign ID based on the name
         self.id = building_id_map.get(name, -1)  # Default to -1 if name is not found
 
-        self.infection_rate = 0.01 #  1%
-        self.recovery_rate = 0.01# 1 % recovery rate. Use infectious state "2" as recovered
-        self.alpha = 0.01
-        self.suscptible_again = 0.01
+        self.infection_rate = Settings.rate_of_dissease_spread #  1%
+        self.recovery_rate = Settings.recovery_rate# 1 % recovery rate. Use infectious state "2" as recovered
+        self.alpha = Settings.incubation_rate
+        self.suscptible_again = Settings.suseptible_again_probability
 
 
     def enlist(self, student):

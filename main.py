@@ -9,6 +9,12 @@ import numpy as np
 import Plot
 
 
+
+
+
+
+
+
 # Create the main window
 root = tk.Tk()
 root.title("Chalmers Campus Map")
@@ -74,7 +80,7 @@ for i in range(Students.total_students):
 # the whole simulation
 time_step = 0
 max_time_step = 10000000
-time_step_per_day = 100
+time_step_per_day = 1440
 visualization_step = 5
 #initialize data arrays
 running = True
