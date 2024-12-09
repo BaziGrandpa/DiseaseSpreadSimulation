@@ -36,42 +36,6 @@ def record_student_learning(buildings):
     student_learning.append(np.sum(total_learning_fraction)/4) ## divide by 4 since we are looking at 4 departments
 
 
-def save_plot_fraction_learning(infectious_rate, recovery_rate,social_dist):
-    # Define the folder path for saving the plot
-    plot_folder = "Plot"
-
-    # Ensure the folder exists
-    if not os.path.exists(plot_folder):
-        os.makedirs(plot_folder)
-
-    final_file_name = str(Students.total_students) + "students_" + str(infectious_rate) + "Irate_" + str(recovery_rate)  +  "Rrate_"+ str(social_dist)+ "social dist" "_percent learning.png"
-
-    # Full path for the plot file
-    plot_filename = os.path.join(plot_folder, final_file_name)
-
-    # Generate x-ticks for days
- 
-    # Create a MATLAB-style plot
-    plt.figure(figsize=(10, 6))
-
-    # Plot recorded data
-    plt.plot(np.array(recorded_time_steps) / Settings.time_step_per_day, student_learning, label="Percentage learning", color="red")
-    plt.xlabel("Time Steps (Days)")
-    plt.ylabel("Fraction of learning")
-    plt.title("Simulation Results: Learning over time as disease spread.")
-    plt.legend()
-    plt.grid(True)
-
-    # Save the plot in the specified folder
-    plt.savefig(plot_filename)
-
-    # Optionally display the plot (can be omitted in a headless environment)
-    # plt.show()
-
-    print(f"Plot saved as {plot_filename}")
-
-
-
 def record_simulation_data(time_step):
     global recorded_time_steps, recorded_sick_students, recorded_healthy_students
     healthy_students_count = 0
@@ -105,19 +69,26 @@ def save_plot(infectious_rate, recovery_rate,social_dist):
     # Full path for the plot file
     plot_filename = os.path.join(plot_folder, final_file_name)
 
-    # Create a MATLAB-style plot
-    plt.figure(figsize=(10, 6))
+    fig, ax = plt.subplots(1, 2, figsize=(14, 6))
 
     # Plot recorded data
-    plt.plot(np.array(recorded_time_steps) / Settings.time_step_per_day, recorded_sick_students, label="Sick Students", color="red")
-    plt.plot(np.array(recorded_time_steps) / Settings.time_step_per_day, recorded_healthy_students, label="Healthy Students", color="green")
-    plt.plot(np.array(recorded_time_steps) / Settings.time_step_per_day, recorded_recovered_students, label="Recovered Students", color="blue")
+    ax[0].plot(np.array(recorded_time_steps) / Settings.time_step_per_day, recorded_sick_students, label="Sick Students", color="red")
+    ax[0].plot(np.array(recorded_time_steps) / Settings.time_step_per_day, recorded_healthy_students, label="Healthy Students", color="green")
+    ax[0].plot(np.array(recorded_time_steps) / Settings.time_step_per_day, recorded_recovered_students, label="Recovered Students", color="blue")
     
-    plt.xlabel("Time Steps (Days)")
-    plt.ylabel("Number of Students")
-    plt.title("Simulation Results: Healthy vs Sick Students")
-    plt.legend()
-    plt.grid(True)
+    ax[0].set_xlabel("Time Steps (Days)")
+    ax[0].set_ylabel("Number of Students")
+    ax[0].set_title("Simulation Results: Healthy vs Sick Students")
+    ax[0].legend()
+    ax[0].grid(True)
+
+    # Plotting on the second subplot
+    ax[1].plot(np.array(recorded_time_steps) / Settings.time_step_per_day, student_learning, label="Percentage learning", color="red")
+    ax[1].set_xlabel("Time Steps (Days)")
+    ax[1].set_ylabel("Learning (%)")
+    ax[1].set_title("Simulation Results: Learning over time as disease spread.")
+    ax[1].legend()
+    ax[1].grid(True)
 
     # Save the plot in the specified folder
     plt.savefig(plot_filename)
