@@ -51,6 +51,7 @@ class Building:
         self.infection_rate = 0.01 #  1%
         self.recovery_rate = 0.01# 1 % recovery rate. Use infectious state "2" as recovered
         self.alpha = 0.01
+        self.suscptible_again = 0.01
 
 
     def enlist(self, student):
@@ -88,6 +89,9 @@ class Building:
         ## i refers to index in the building list.
         for i, student in enumerate(self.students):
             student_state = Students.get_student_infectiou_state(student)
+            if student_state == 2 and np.random.rand() < self.suscptible_again:
+                
+                Students.set_student_infectiou_state(student,0)
             ## Cant infect if the current student is not infected enough, or recovered.
             if student_state < 0.5 or student_state == 2:
                 continue

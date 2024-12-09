@@ -1,4 +1,4 @@
-total_students = 500
+total_students = 100
 
 department_number = 4
 
