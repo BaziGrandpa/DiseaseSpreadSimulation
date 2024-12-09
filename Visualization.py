@@ -2,7 +2,7 @@ import tkinter as tk
 import Students
 import math
 from tkinter import messagebox
-
+import Settings
 builindgs_positions_range = {}
 oval_objects_pool = []
 oval_size = 4
@@ -52,7 +52,13 @@ def visualize_agent(canvas,buildings):
             start_position_x = start_position[0] + column*oval_size
             start_position_y = start_position[1] + row*oval_size
             canvas.coords(oval,start_position_x, start_position_y,start_position_x+ oval_size,start_position_y+ oval_size)
-            canvas.itemconfig(oval, state="normal", fill="red" if (state >= 0.5 and state !=2) else "green")
+            if state ==2:
+                canvas.itemconfig(oval, state="normal", fill="blue")
+
+            elif state >Settings.stay_at_home_threshold and state < 2:
+                canvas.itemconfig(oval, state="normal", fill="red" if (state > Settings.stay_at_home_threshold and state < 2) else "green")
+            else:
+                canvas.itemconfig(oval, state="normal", fill="yellow" if (state > 0 and state <=Settings.stay_at_home_threshold) else "green")
             id_in_list += 1
             oval_id += 1
 

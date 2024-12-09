@@ -110,7 +110,7 @@ class Building:
             for neighbour in neighbours:
                 ## Can only infect if student is infected
                 state_neighbour = Students.get_student_infectiou_state(neighbour)
-                if np.random.rand() < self.infection_rate and state_neighbour != 2:
+                if np.random.rand() < self.infection_rate*Settings.public_distancing_precentage**2 and state_neighbour != 2:
                     if state_neighbour == 0:
                         Students.set_student_infectiou_state(neighbour, 0.5)
 

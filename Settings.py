@@ -7,7 +7,7 @@ max_capacity=100 #the maximum capacity of each building
 public_distancing_precentage=1
 
 building_capacity=max_capacity*public_distancing_precentage
-rate_of_dissease_spread=0.001
+rate_of_dissease_spread=0.01
 recovery_rate=0.0003
 incubation_rate=0.001
 suseptible_again_probability=0.001
