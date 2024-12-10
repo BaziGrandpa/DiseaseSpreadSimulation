@@ -10,7 +10,7 @@ building_capacity=max_capacity*public_distancing_precentage
 rate_of_dissease_spread=0.001
 recovery_rate=0.0003
 incubation_rate=0.001
-suseptible_again_probability=0.001
+suseptible_again_probability=0.0001
 
 stay_at_home_threshold=1.1
 
