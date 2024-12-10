@@ -90,7 +90,8 @@ def save_plot(infectious_rate, recovery_rate,social_dist,stay_home_thresh):
 
 
     ## Non-zero-learning refers to the time when the students are at school.
-    non_zero_learning = np.array([rate for rate in student_learning if rate != 0])
+    ## Set threshold to 0.02 since some people study during lunch, but that should not be incorporated in the average.
+    non_zero_learning = np.array([rate for rate in student_learning if rate >= 0.02]) 
     avg_learning = np.sum(non_zero_learning)/len(non_zero_learning)
 
     # Plotting on the second subplot

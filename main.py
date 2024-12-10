@@ -80,7 +80,7 @@ for i in range(Students.total_students):
 
 # the whole simulation
 time_step = 0
-max_time_step = 43200 # corresponds to 60 days. time_step_per_day * 60
+max_time_step =  43200 # corresponds to 60 days. time_step_per_day * 60
 time_step_per_day = 720
 visualization_step = 100
 #initialize data arrays
@@ -89,11 +89,13 @@ while time_step < max_time_step and running:
     # simulation code
     SimulationController.simulation(time_step% time_step_per_day, buildings,building_map)
 
+    Plot.record_simulation_data(time_step+1)
+    Plot.record_student_learning(buildings)
+
     # visualization code
     if time_step % visualization_step == 0:
         try:
-            Plot.record_simulation_data(time_step+1)
-            Plot.record_student_learning(buildings)
+            
 
             Visualization.visualize_agent(canvas, buildings)
             # update the canvas
