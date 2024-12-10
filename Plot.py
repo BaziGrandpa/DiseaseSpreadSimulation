@@ -32,7 +32,7 @@ def record_student_learning(buildings):
 
                 fraction_learning_per_class = np.sum(fraction_learning)
                 ## 
-                total_learning_fraction.append(fraction_learning_per_class/building.maximum_number)
+                total_learning_fraction.append(fraction_learning_per_class/Settings.max_capacity)
 
     student_learning.append(np.sum(total_learning_fraction)/4) ## divide by 4 since we are looking at 4 departments
 
