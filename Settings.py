@@ -12,7 +12,7 @@ recovery_rate=0.0003
 incubation_rate=0.001
 suseptible_again_probability=0.001
 
-stay_at_home_threshold=0.7
+stay_at_home_threshold=1.1
 
 patient_zero_index=50
 
