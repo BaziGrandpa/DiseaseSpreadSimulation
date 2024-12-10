@@ -100,6 +100,7 @@ def save_plot(infectious_rate, recovery_rate,social_dist,stay_home_thresh):
     ax[1].set_xlabel("Time Steps (Days)")
     ax[1].set_ylabel("Learning (%)")
     ax[1].set_title("Simulation Results: Learning over time as disease spread.")
+    ax[1].set_ylim([0,1.1])
     ax[1].legend()
     ax[1].grid(True)
 
