@@ -1,5 +1,6 @@
 import os
 import matplotlib.pyplot as plt
+import matplotlib
 import numpy as np
 import Students
 import Buildings
@@ -62,7 +63,11 @@ def record_simulation_data(time_step):
     recorded_recovered_students.append(recovered_students_count)
     
 
-def save_plot(infectious_rate, recovery_rate,social_dist,stay_home_thresh):
+import os
+import numpy as np
+import matplotlib.pyplot as plt
+
+def save_plot(infectious_rate, recovery_rate, social_dist, stay_home_thresh):
     # Define the folder path for saving the plot
     plot_folder = "Plot"
 
@@ -70,7 +75,11 @@ def save_plot(infectious_rate, recovery_rate,social_dist,stay_home_thresh):
     if not os.path.exists(plot_folder):
         os.makedirs(plot_folder)
 
-    final_file_name = str(Students.total_students) + "students_" + str(infectious_rate) + "Irate_" + str(recovery_rate) + "Rrate_" + str(stay_home_thresh) + "StayHome_" + str(social_dist)+ "social dist.png"
+    final_file_name = (
+        str(Students.total_students) + "students_" + str(infectious_rate) + "Irate_" + 
+        str(recovery_rate) + "Rrate_" + str(stay_home_thresh) + "StayHome_" + 
+        str(social_dist) + "social dist.png"
+    )
 
     # Full path for the plot file
     plot_filename = os.path.join(plot_folder, final_file_name)
@@ -78,30 +87,55 @@ def save_plot(infectious_rate, recovery_rate,social_dist,stay_home_thresh):
     fig, ax = plt.subplots(1, 2, figsize=(14, 6))
 
     # Plot recorded data
-    ax[0].plot(np.array(recorded_time_steps) / Settings.time_step_per_day, recorded_sick_students, label="Sick Students", color="red")
-    ax[0].plot(np.array(recorded_time_steps) / Settings.time_step_per_day, recorded_healthy_students, label="Healthy Students", color="green")
-    ax[0].plot(np.array(recorded_time_steps) / Settings.time_step_per_day, recorded_recovered_students, label="Recovered Students", color="blue")
-    
-    ax[0].set_xlabel("Time Steps (Days)")
-    ax[0].set_ylabel("Number of Students")
-    ax[0].set_title("Simulation Results: Healthy vs Sick Students")
-    ax[0].legend()
+    ax[0].plot(
+        np.array(recorded_time_steps) / Settings.time_step_per_day, 
+        recorded_sick_students, 
+        label="Sick Students", 
+        color="red"
+    )
+    ax[0].plot(
+        np.array(recorded_time_steps) / Settings.time_step_per_day, 
+        recorded_healthy_students, 
+        label="Healthy Students", 
+        color="green"
+    )
+    ax[0].plot(
+        np.array(recorded_time_steps) / Settings.time_step_per_day, 
+        recorded_recovered_students, 
+        label="Recovered Students", 
+        color="blue"
+    )
+
+    ax[0].set_xlabel("Time Steps (Days)", fontsize=18)
+    ax[0].set_ylabel("Number of Students", fontsize=18)
+    ax[0].set_title("Simulation Results: Healthy vs Sick Students", fontsize=16)
+    ax[0].legend(fontsize=14)
+    ax[0].tick_params(axis='both', which='major', labelsize=18)
     ax[0].grid(True)
 
-
-    ## Non-zero-learning refers to the time when the students are at school.
-    ## Set threshold to 0.02 since some people study during lunch, but that should not be incorporated in the average.
-    non_zero_learning = np.array([rate for rate in student_learning if rate >= 0.02]) 
-    avg_learning = np.sum(non_zero_learning)/len(non_zero_learning)
+    # Non-zero-learning refers to the time when the students are at school.
+    non_zero_learning = np.array([rate for rate in student_learning if rate >= 0.02])
+    avg_learning = np.sum(non_zero_learning) / len(non_zero_learning)
 
     # Plotting on the second subplot
-    ax[1].plot(np.array(recorded_time_steps) / Settings.time_step_per_day, student_learning, label="Percentage learning", color="red")
-    ax[1].axhline(y=avg_learning, color='blue', linestyle='--', label=f'Average learning in class: {avg_learning:.2f}')
-    ax[1].set_xlabel("Time Steps (Days)")
-    ax[1].set_ylabel("Learning (%)")
-    ax[1].set_title("Simulation Results: Learning over time as disease spread.")
-    ax[1].set_ylim([0,1.1])
-    ax[1].legend()
+    ax[1].plot(
+        np.array(recorded_time_steps) / Settings.time_step_per_day, 
+        student_learning, 
+        label="Percentage learning", 
+        color="red"
+    )
+    ax[1].axhline(
+        y=avg_learning, 
+        color='blue', 
+        linestyle='--', 
+        label=f'Average learning in class: {avg_learning:.2f}'
+    )
+    ax[1].set_xlabel("Time Steps (Days)", fontsize=18)
+    ax[1].set_ylabel("Learning (%)", fontsize=18)
+    ax[1].set_title("Simulation Results: Learning over time as disease spread.", fontsize=16)
+    ax[1].set_ylim([0, 1.1])
+    ax[1].legend(fontsize=14)
+    ax[1].tick_params(axis='both', which='major', labelsize=18)
     ax[1].grid(True)
 
     # Save the plot in the specified folder
@@ -111,3 +145,4 @@ def save_plot(infectious_rate, recovery_rate,social_dist,stay_home_thresh):
     # plt.show()
 
     print(f"Plot saved as {plot_filename}")
+
